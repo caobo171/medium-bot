@@ -12,13 +12,15 @@ const puppeteer = require('puppeteer');
     await page.type('input[title]','Updating ApolloCLient cache and rerendering data Medium');
     // ENter
     await page.keyboard.press('Enter')
-    await page.waitForNavigation({
-        waitUntil: 'domcontentloaded'
-    });
-
+    await page.waitFor(5000)
     await page.click(`.g`);
-    await page.waitForNavigation({
-        waitUntil: 'domcontentloaded'
-    });
-    console.log('aaa')
+    await page.waitFor(15000)
+    
+
+    const content = await page.evaluate(()=>{
+        return document.getElementsByTagName('section')[1].innerText
+    })
+    console.log('check content', content)
+
+    browser.close
 })()
